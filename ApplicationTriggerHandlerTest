@@ -1,0 +1,24 @@
+@isTest
+public class ApplicationTriggerHandlerTest {
+    public static testMethod void testApplicationTrigger() {
+        // Create a test Application__c record
+        Application__c testApp = new Application__c();
+        
+        testApp.Applicant_Name__c = 'Test Application';
+        testApp.Application_Status__c = 'Provisionally Admitted'; // Change this to 'Rejected' to simulate a rejected application
+            // Insert a new application
+        insert testApp;
+
+        // Create a test Case record for the expected result
+        Case testCase = new Case();
+            testcase.Subject = 'Application for Test Applicant By: Test User';
+            testcase.Description = 'This application was not marked with a status of "Rejected", please close the case once completed';
+            testcase.Status = 'new';
+            testApp.Id = testApp.Id;
+        
+
+        // Delete the Application__c record to trigger the before delete trigger
+        delete testApp;
+
+    }
+}
