@@ -1,0 +1,60 @@
+public class ApplicationRecordCreation {
+
+    public static void appCreation() {
+        
+        /* For(Integer i=1; i < 100; i++){
+ 
+            Application__c newApp = new Application__c();{
+                newApp.Applicant_Name__c = 'Mohamed Shire';
+                newApp.Application_Status__c = 'Pending';
+                newApp.Previous_Education__c = 'High School Diploma or GED';
+                newApp.Program_Applied_For__c = 'Information Technology';
+                newApp.Description__c = 'Student is applying for a Information Technology degree';
+                System.debug('Number of records'+newApp);
+                Insert newApp;
+                
+            }                
+            
+        }
+        
+        for(Integer i=1; i<100; i++);{
+            Application__c secondApp = new Application__c();{
+                
+                secondApp.Applicant_Name__c = 'John Doe';
+                secondApp.Application_Status__c = 'Admitted';
+                secondApp.Previous_Education__c = 'Doctorate';
+                secondApp.Program_Applied_For__c = 'Bachelor of Science Nursing';
+                secondApp.Description__c = 'Student is excited to start their nursing degree';
+                System.debug('Number of records'+secondApp);
+                insert secondApp;
+                
+            } 
+         */
+           List<Application__c> appList = new List<Application__c>();
+           for(Integer i=1; i<5;i++){
+            Application__c thirdApp = new Application__c();
+                thirdApp.Applicant_Name__c = 'John will';
+                thirdApp.Application_Status__c = 'Provisionally Admitted';
+                thirdApp.Previous_Education__c = 'Bachelors';
+                thirdApp.Program_Applied_For__c = 'MBA';
+                thirdApp.Description__c = 'Muhammed Ali is applying for his MBA';
+                System.debug('Number of records'+thirdApp);
+                appList.add(thirdApp);
+               System.debug('Size of list'+Applist.size());
+            
+       }
+        Insert appList;
+        
+        /*for(Integer i=1; i<100;i++);{
+            Application__c thirdApp = new Application__c();{
+                thirdApp.Applicant_Name__c = 'Muhammed Ali';
+                thirdApp.Application_Status__c = 'Provisionally Admitted';
+                thirdApp.Previous_Education__c = 'Bachelors';
+                thirdApp.Program_Applied_For__c = 'MBA';
+                thirdApp.Description__c = 'Muhammed Ali is applying for his MBA';
+                System.debug('Number of records'+thirdApp);
+                insert thirdApp;
+            }
+          */  
+        }
+    }
