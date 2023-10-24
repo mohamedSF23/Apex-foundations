@@ -1,1 +1,59 @@
+public class ApplicationTriggerHandler {
+    
+    public static void dupAppList(){
+        
+    //List of all queried applications 
+    List<Application__c> DuplicateRecord = [SELECT Id, Applicant_Name__c 
+                                            FROM Application__c];
+        //Update the Applicant Name by adding 'Duplicate' at the end.
+        for(Application__c d: DuplicateRecord) {
+            d.Applicant_Name__c = d.Applicant_Name__c +'' +'Duplicate';
+            System.debug(d.Applicant_Name__c+'Duplicate');
+        }
+        //DML update statement to update the list of application
+        update DuplicateRecord;
+        
+    }
+    
+    //List of pending applications
+    public static void getPendingApplication(){
+    //public static List<Application__c> PendingList(){
+    
+        Application__c ListofApps = [SELECT Id, Applicant_Name__c, Application_Status__c, Program_Applied_For__c, Previous_Education__c 
+                                          FROM Application__c
+                                        WHERE Application_Status__c = 'PENDING'];
+        //List<Application__c> ListApps = [SELECT Id, Applicant_Name__c, Application_Status__c, Program_Applied_For__c, Previous_Education__c 
+                                          //FROM Application__c
+                                          // WHERE Application_Status__c = 'PENDING'];
+        
+        //Show list of Pending applications
+         System.debug('Pending Applications: '+ListofApps);
+        //return query list of records
+    }
+    
+    public static void caseCreation(List<Application__c> reject){
+        //List to store cases for applications
+        List<Case> casesToInsert = new List<Case>();
+        for(Application__c a: reject){
+            //Checks the status of the application
+            if(a.Application_Status__c != 'Rejected'){
+            //Create the case    
+            case newCase = new case();
+            newCase.Description = 'This application was NOT marked with a status of "Rejected", please close case once completed';
+            newCase.Status = 'New';
+            newcase.Priority='High';
+            newcase.Origin='web';
+            newCase.Subject = 'Application for: ' +a.Applicant_Name__c+ 'Had a status of: '+a.Application_Status__c+ ' and was deleted By: '+userinfo.getUserName();
+            //assign the Application id to the new case
+            newCase.ApplicationID__c = a.id;
+            CasestoInsert.add(newCase);
 
+          }
+            
+        }
+        //Check if the caseToInsert list is empty before doing the case insertion
+        if (!casesToInsert.isEmpty()) {
+            insert casesToInsert;
+    } 
+  }
+}
